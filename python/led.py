@@ -70,6 +70,9 @@ def _update_esp8266():
     idx = np.array_split(idx, n_packets)
     for packet_indices in idx:
         m = '' if _is_python_2 else []
+        if config.USE_WLED_PROTOCOL:
+            m.append(1)     # WLED WARLS protocol
+            m.append(10)    # WLED timeout in s
         for i in packet_indices:
             if _is_python_2:
                 m += chr(i) + chr(p[0][i]) + chr(p[1][i]) + chr(p[2][i])
